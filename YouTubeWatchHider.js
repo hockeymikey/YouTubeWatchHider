@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version        1.0.0
+// @version        1.0.1
 // @name           YoutubeWatchHider - Hide watched videos on sub feed.
 // @namespace      https://github.com/hockeymikey/YouTubeWatchHider
 // @match          *://www.youtube.com/*
@@ -16,7 +16,8 @@ var HideVideos = function () {
     feed = document.querySelectorAll('#browse-items-primary li');
     for (i = 0; i < feed.length; i++) {
       element = feed[i];
-      if (element.className == 'yt-shelf-grid-item' && element.style.display !== 'none' && element.querySelector('div.watched') !== null) {
+      if (element.className == 'yt-shelf-grid-item' && element.style.display !== 'none' 
+          && (element.querySelector('div.watched') !== null || element.querySelector('div.contains-percent-duration-watched') !== null) ) {
         element.style.display = 'none';
       }
     }
@@ -28,7 +29,8 @@ var undoHide = function () {
   feed = document.querySelectorAll('#browse-items-primary li');
   for (i = 0; i < feed.length; i++) {
     element = feed[i];
-    if (element.className == 'yt-shelf-grid-item' && element.style.display == 'none' && element.querySelector('div.watched') !== null) {
+    if (element.className == 'yt-shelf-grid-item' && element.style.display == 'none' 
+        && (element.querySelector('div.watched') !== null || element.querySelector('div.contains-percent-duration-watched') !== null) )  {
       element.style.display = 'inline-block';
     }
   }

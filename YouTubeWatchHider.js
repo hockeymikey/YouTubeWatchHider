@@ -1,13 +1,13 @@
 // ==UserScript==
 // @version        1.0.0
 // @name           YoutubeWatchHider - Hide watched videos on sub feed.
-// @namespace      https://gist.github.com/xPaw/6324624
+// @namespace      https://github.com/hockeymikey/YouTubeWatchHider
 // @match          *://www.youtube.com/*
-// @updateURL      https://gist.github.com/xPaw/6324624/raw/YoutubeHideWatched.user.js
-// @downloadURL    https://gist.github.com/xPaw/6324624/raw/YoutubeHideWatched.user.js
+// @updateURL      https://raw.githubusercontent.com/hockeymikey/YouTubeWatchHider/master/YouTubeWatchHider.js
+// @downloadURL    https://raw.githubusercontent.com/hockeymikey/YouTubeWatchHider/master/YouTubeWatchHider.js
 // @grant          none
 // ==/UserScript==
-console.log('TEST');
+
 var HideVideos = function () {
   var toggleVal = localStorage.getItem('hockeyYTubeToggle');
   if (toggleVal == 'true') {
@@ -17,8 +17,6 @@ var HideVideos = function () {
     for (i = 0; i < feed.length; i++) {
       element = feed[i];
       if (element.className == 'yt-shelf-grid-item' && element.style.display !== 'none' && element.querySelector('div.watched') !== null) {
-        //alert( element.querySelector( 'span.resume-playback-progress-bar').text)
-        // .watched-message or .watched-badge or .watched or .contains-percent-duration-watched
         element.style.display = 'none';
       }
     }
@@ -31,8 +29,6 @@ var undoHide = function () {
   for (i = 0; i < feed.length; i++) {
     element = feed[i];
     if (element.className == 'yt-shelf-grid-item' && element.style.display == 'none' && element.querySelector('div.watched') !== null) {
-      //alert( element.querySelector( 'span.resume-playback-progress-bar').text)
-      // .watched-message or .watched-badge or .watched or .contains-percent-duration-watched
       element.style.display = 'inline-block';
     }
   }
@@ -70,7 +66,6 @@ if (window.location.pathname.startsWith('/feed/subscriptions')) {
 }
 document.addEventListener('spfdone', function (e) {
   if (e.detail.url.includes('/feed/subscriptions')) {
-    console.log('hide');
     HideVideos();
   }
 });
